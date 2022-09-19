@@ -1,6 +1,6 @@
 "use strict";
 warning( "version: 20")
-console.log( "version: 20")
+setOutput( "version", "20");
 const { setOutput, warning } = require( "@actions/core" );
 const leankitApiFactory = require( "../leankit/api" );
 const { getInputParams, reportError, validateLeankitUrl } = require( "../leankit/helpers" );
@@ -18,8 +18,8 @@ const { getInputParams, reportError, validateLeankitUrl } = require( "../leankit
 	validateLeankitUrl( "host", host );
 
 	const { createCard } = leankitApiFactory( host, apiToken );
-	warning( `laneId:${ laneId }`)
-	warning( `typeId:${ typeId }`)
+	setOutput( "laneId", laneId );
+	setOutput( "typeId", typeId );
 	const payload = { boardId, title, laneId, typeId };
 	// if ( laneId ) {
 	// 	payload.laneId = laneId;
