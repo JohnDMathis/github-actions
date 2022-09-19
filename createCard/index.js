@@ -1,5 +1,6 @@
 "use strict";
 warning( "version: 20")
+console.log( "version: 20")
 const { setOutput, warning } = require( "@actions/core" );
 const leankitApiFactory = require( "../leankit/api" );
 const { getInputParams, reportError, validateLeankitUrl } = require( "../leankit/helpers" );
