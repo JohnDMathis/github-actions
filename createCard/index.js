@@ -18,12 +18,12 @@ const { getInputParams, reportError, validateLeankitUrl } = require( "../leankit
 
 	const { createCard } = leankitApiFactory( host, apiToken );
 
-	const payload = { boardId, title };
-	if ( laneId ) {
-		payload.laneId = laneId;
-	}
+	const payload = { boardId, title, laneId, typeId };
+	// if ( laneId ) {
+	// 	payload.laneId = laneId;
+	// }
 	// if ( typeId ) {
-	payload.typeId = typeId;
+	// payload.typeId = typeId;
 	// }
 
 	const id = await createCard( payload );
