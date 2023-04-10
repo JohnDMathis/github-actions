@@ -1,6 +1,6 @@
 name: validate custom fields
 on:
-  repository_dispatch:
+  push:
 jobs:
   validateCustomFields:
     runs-on: ubuntu-latest

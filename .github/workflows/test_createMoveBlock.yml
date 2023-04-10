@@ -1,6 +1,6 @@
 name: create / move test
 on:
-  repository_dispatch:
+  push:
 jobs:
   createAndMoveTest:
     runs-on: ubuntu-latest

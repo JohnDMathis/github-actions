@@ -1,0 +1,33 @@
+name: block card consumer
+on:
+  repository_dispatch:
+jobs:
+  block-test-2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: get card id
+        id: getCardId
+        run:
+            | # regexs allows for [12345], [LK:12345], [card 12345], etc in the PR title.
+            cardId=`echo ${{ github.event.client_payload.title }} | sed -E 's/.*\[[A-z]*:?\ ?([0-9]*)\]/\1/'`
+            if [ "$cardId" != "${{ github.event.client_payload.title }}" ]; then
+                echo "cardId=$cardId" >> $GITHUB_OUTPUT
+            fi
+
+      - name: results
+        run: |
+          echo ${{ steps.getCardId.outputs.cardId }}
+          echo ${{ github.event.client_payload.title }}
+
+      - name: block card
+        id: blockCard
+        if: ${{ steps.getCardId.outputs.cardId }}
+        uses: ./blockCard
+        with:
+          host: ${{ github.event.client_payload.common.host }}
+          apiToken: ${{ github.event.client_payload.common.apiToken }}
+          cardId: ${{ steps.getCardId.outputs.cardId }}
+          isBlocked: true
+          blockReason: Check the PR! Tests failed
+
